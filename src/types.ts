@@ -6,5 +6,12 @@ export type Survey = {
     deadlineTime: string;
     
 }
+export type Question = {
+    questionId: number;
+    questionText: string;
+    isRequired: boolean;
+    questionType: string;
+    orderNumber: number;
+}
 
 

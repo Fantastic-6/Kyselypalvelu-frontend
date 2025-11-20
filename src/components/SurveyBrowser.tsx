@@ -13,11 +13,10 @@ function SurveyBrowser() {
 
     const fetchSurveys = () => {
         //fetch("http://localhost:8080/api/surveys")
-        fetch(import.meta.env.VITE_API_URL + "/api/surveys")
+        fetch(import.meta.env.VITE_API_URL + "/surveys")
             .then(response => {
                 if (!response.ok)
                     throw new Error("Error when fetching surveys: " + response.statusText);
-                console.log(response);
                 return response.json();
 
             })
