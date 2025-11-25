@@ -1,6 +1,7 @@
-import { type GridColDef, DataGrid } from "@mui/x-data-grid";
+import { type GridColDef, DataGrid, type GridRenderCellParams } from "@mui/x-data-grid";
 import { useState, useEffect } from "react";
 import type { Survey } from "../types";
+import Button from "@mui/material/Button";
 function SurveyBrowser() {
 
     // fetch
@@ -26,7 +27,11 @@ function SurveyBrowser() {
         { field: "title", width: 200 , headerName: "Otsikko"},
         { field: "description", width: 400 , headerName: "Kuvaus"},
         { field: "deadlineDate", headerName: "Sulkeutumispäivä"},
-        { field: "deadlineTime", headerName: "Sulkeutumisaika" }
+        { field: "deadlineTime", headerName: "Sulkeutumisaika" },
+        { headerName: "", sortable: false, filterable: false, field: "surveyId", 
+          renderCell: (params: GridRenderCellParams) => 
+            <Button color="error" size="small" href="/survey/${surveyId}">Answer Survey</Button>
+        }
     ]
 
     return (
