@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import type { Question } from "../types";
+import RenderQuestion from "./RenderQuestion";
 function SurveyView(){
   const [questions, setQuestions] = useState<Question[]>([]);
   useEffect(() => {
@@ -7,7 +8,7 @@ function SurveyView(){
   }, []);
 
   const fetchQuestions = () => {
-    fetch(import.meta.env.VITE_API_URL + "/1/questions")
+    fetch(import.meta.env.VITE_API_URL + "/2/questions")
       .then(response => {
         if(!response.ok)
           throw new Error("Error when fetching questions" + response.statusText);
@@ -19,13 +20,10 @@ function SurveyView(){
   
   return (
     <>
-      <h1>Otsikko</h1>
+      <h1>Otsikko v2</h1>
       
       {questions.map(question => (
-        <div id={question.questionId}>
-          <h1>{question.questionText}</h1>
-          <input required={question.isRequired} type={question.questionType} />
-        </div>
+        <RenderQuestion question={question} />
       ))}
     </>
   );
