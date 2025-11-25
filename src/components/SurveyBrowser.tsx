@@ -1,8 +1,6 @@
+import { type GridColDef, DataGrid } from "@mui/x-data-grid";
 import { useState, useEffect } from "react";
 import type { Survey } from "../types";
-import { DataGrid, type GridColDef } from "@mui/x-data-grid";
-//import { GridColDef, DataGrid } from "@mui/x-data-grid";
-
 function SurveyBrowser() {
 
     // fetch

@@ -1,7 +1,7 @@
 
 import SurveyBrowser from "./components/SurveyBrowser";
-import SurveyView from "./components/SurveyView.tsx";
 import './App.css'
+import SurveyView from "./components/SurveyView";
 
 function App() {
 
