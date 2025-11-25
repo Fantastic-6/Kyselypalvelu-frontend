@@ -21,7 +21,7 @@ function SurveyView(){
   
   return (
     <>
-      <h1>Otsikko v2</h1>
+      <h1>Suvery {id}</h1>
       
       {questions.map(question => (
         <RenderQuestion question={question} />

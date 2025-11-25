@@ -30,7 +30,7 @@ function SurveyBrowser() {
         { field: "deadlineTime", headerName: "Sulkeutumisaika" },
         { headerName: "", sortable: false, filterable: false, field: "surveyId", 
           renderCell: (params: GridRenderCellParams) => 
-            <Button color="error" size="small" href="/survey/${surveyId}">Answer Survey</Button>
+            <Button color="error" size="small" href={`/survey/${params.row.surveyId}`}>Answer Survey</Button>
         }
     ]
 

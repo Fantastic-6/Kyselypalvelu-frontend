@@ -19,23 +19,32 @@ function RenderQuestion({ question }: questionProps) {
       return (
         <div>
           <p>{question.questionText}</p>
-          <input type="radio" name="radioOption" value={"yes"} onClick={event => setAnswer(event.target.value)} />
-          <input type="radio" name="radioOption" value={"no"} onClick={event => setAnswer(event.target.value)} />
+          {question.options.map(option => 
+            <div>
+              <label form={option.optionId}>{option.title}</label>
+              <input type="radio" name="radioOption" value={option.title} onClick={event => setAnswer(event.target.value)} />
+            </div>
+          )}
         </div>
       )
     case "CHECKBOX":
       return (
         <div>
           <p>{question.questionText}</p>
-          <input type="checkbox" />
-          <input type="checkbox" />
+          {question.options.map(option =>
+            <div>
+              <label for={option.optionId}>{option.title}</label>
+              <input type="checkbox" id={option.optionId} />
+            </div>
+          )}
         </div>
       )
     case "SCALE":
       return (
         <div>
           <p>{question.questionText}</p>
-          <input type="range" min={1} max={5} />
+          <input type="range" min={"1"} max={"5"} value={answer} onChange={event => setAnswer(event.target.value)}/>
+          <p>Current value: {answer}</p>
         </div>
       )
     default:
