@@ -1,8 +1,7 @@
 
-import SurveyBrowser from "./components/SurveyBrowser";
 import './App.css'
-import SurveyView from "./components/SurveyView";
-import { Outlet } from "react-router-dom";
+
+import { Outlet } from "react-router";
 
 function App() {
 

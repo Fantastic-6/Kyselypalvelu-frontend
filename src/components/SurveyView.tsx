@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import type { Question } from "../types";
 import RenderQuestion from "./RenderQuestion";
-import { useParams } from "react-router-dom";
+import { useParams } from "react-router";
 function SurveyView(){
   const [questions, setQuestions] = useState<Question[]>([]);
   useEffect(() => {

@@ -4,7 +4,7 @@ import './index.css'
 import App from './App.tsx'
 import SurveyBrowser from './components/SurveyBrowser.tsx'
 import SurveyView from './components/SurveyView.tsx'
-import { createBrowserRouter, RouterProvider } from 'react-router-dom'
+import { createBrowserRouter, RouterProvider } from 'react-router'
 const router = createBrowserRouter([
   {
     path: "/",
