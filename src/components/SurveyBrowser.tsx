@@ -1,8 +1,7 @@
+import { type GridColDef, DataGrid, type GridRenderCellParams } from "@mui/x-data-grid";
 import { useState, useEffect } from "react";
 import type { Survey } from "../types";
-import { DataGrid, type GridColDef } from "@mui/x-data-grid";
-//import { GridColDef, DataGrid } from "@mui/x-data-grid";
-
+import Button from "@mui/material/Button";
 function SurveyBrowser() {
 
     // fetch
@@ -13,11 +12,10 @@ function SurveyBrowser() {
 
     const fetchSurveys = () => {
         //fetch("http://localhost:8080/api/surveys")
-        fetch(import.meta.env.VITE_API_URL + "/api/surveys")
+        fetch(import.meta.env.VITE_API_URL + "/surveys")
             .then(response => {
                 if (!response.ok)
                     throw new Error("Error when fetching surveys: " + response.statusText);
-                console.log(response);
                 return response.json();
 
             })
@@ -29,7 +27,11 @@ function SurveyBrowser() {
         { field: "title", width: 200 , headerName: "Otsikko"},
         { field: "description", width: 400 , headerName: "Kuvaus"},
         { field: "deadlineDate", headerName: "Sulkeutumispäivä"},
-        { field: "deadlineTime", headerName: "Sulkeutumisaika" }
+        { field: "deadlineTime", headerName: "Sulkeutumisaika" },
+        { headerName: "", sortable: false, filterable: false, field: "surveyId", 
+          renderCell: (params: GridRenderCellParams) => 
+            <Button color="error" size="small" href={`/survey/${params.row.surveyId}`}>Answer Survey</Button>
+        }
     ]
 
     return (
