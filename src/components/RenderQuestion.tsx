@@ -21,8 +21,13 @@ function RenderQuestion({ question }: questionProps) {
           <p>{question.questionText}</p>
           {question.options.map(option => 
             <div>
-              <label form={option.optionId}>{option.title}</label>
-              <input type="radio" name="radioOption" value={option.title} onClick={event => setAnswer(event.target.value)} />
+              <label htmlFor={option.optionId.toString()}>{option.title}</label>
+              <input id={option.optionId.toString()} 
+                type="radio" 
+                name="radioOption" 
+                value={option.title} 
+                checked={answer === option.title} 
+                onClick={() => setAnswer(option.title)} />
             </div>
           )}
         </div>
@@ -33,8 +38,8 @@ function RenderQuestion({ question }: questionProps) {
           <p>{question.questionText}</p>
           {question.options.map(option =>
             <div>
-              <label for={option.optionId}>{option.title}</label>
-              <input type="checkbox" id={option.optionId} />
+              <label htmlFor={option.optionId.toString()}>{option.title}</label>
+              <input type="checkbox" id={option.optionId.toString()} />
             </div>
           )}
         </div>

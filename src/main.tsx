@@ -4,8 +4,8 @@ import './index.css'
 import App from './App.tsx'
 import SurveyBrowser from './components/SurveyBrowser.tsx'
 import SurveyView from './components/SurveyView.tsx'
-import { createBrowserRouter, RouterProvider } from 'react-router'
-const router = createBrowserRouter([
+import { createHashRouter, RouterProvider } from 'react-router'
+const router = createHashRouter([
   {
     path: "/",
     element: <App />,
@@ -15,7 +15,7 @@ const router = createBrowserRouter([
         index: true
       },
       {
-        path: "/survey/:id",
+        path: "survey/:id",
         element: <SurveyView /> 
       }
     ]
