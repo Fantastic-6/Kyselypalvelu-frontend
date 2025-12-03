@@ -1,14 +1,21 @@
-import { useState } from "react";
-import type { Question } from "../types";
+import { useContext, useState } from "react";
+import type { Question, Response } from "../types";
+import { responseContext } from "./SurveyView";
 
 type questionProps = {
   question: Question;
 };
 
 function RenderQuestion({ question }: questionProps) {
-  const [answer, setAnswer] = useState("");
+  const boxes = document.querySelectorAll<HTMLInputElement>(
+    "input[type=checkbox]"
+  );
 
-  const boxes = document.querySelectorAll<HTMLInputElement>('input[type=checkbox]');
+  const context = useContext(responseContext);
+  const [response, setResponse] = useState<Response>({
+    questionId: question.questionId,
+    responseText: ""
+  });
 
   switch (question.questionType) {
     case "TEXT":
@@ -17,8 +24,10 @@ function RenderQuestion({ question }: questionProps) {
           <p>{question.questionText}</p>
           <input
             type="text"
-            value={answer}
-            onChange={(event) => setAnswer(event.target.value)}
+            value={response.responseText}
+            onChange={(event) =>
+              setResponse({ ...response, responseText: event.target.value })
+            }
           />
         </div>
       );
@@ -34,8 +43,10 @@ function RenderQuestion({ question }: questionProps) {
                 type="radio"
                 name="radioOption"
                 value={option.title}
-                checked={answer === option.title}
-                onClick={() => setAnswer(option.title)}
+                checked={response.responseText === option.title}
+                onClick={() =>
+                  setResponse({ ...response, responseText: option.title })
+                }
               />
             </div>
           ))}
@@ -53,16 +64,18 @@ function RenderQuestion({ question }: questionProps) {
                 type="checkbox"
                 name={option.title}
                 value={option.title}
-                onClick={() => setAnswer(() => {
-                  let answers = "";
-                  boxes.forEach(checkbox => {
-                    if(checkbox.checked) {
-                      answers = answers + ";" + checkbox.name
-                    }
+                onClick={() =>
+                  setResponse(() => {
+                    let answers = "";
+                    boxes.forEach((checkbox) => {
+                      if (checkbox.checked) {
+                        answers = answers + ";" + checkbox.name;
+                      }
+                    });
+                    console.log(answers);
+                    return {...response, responseText: answers};
                   })
-                  console.log(answers);
-                  return answers;
-                })}
+                }
               />
             </div>
           ))}
@@ -76,15 +89,15 @@ function RenderQuestion({ question }: questionProps) {
             type="range"
             min={"1"}
             max={"5"}
-            value={answer}
-            onChange={(event) => setAnswer(event.target.value)}
+            value={response.responseText}
+            onChange={(event) =>
+              setResponse({ ...response, responseText: event.target.value })}
           />
-          <p>Current value: {answer}</p>
+          <p>Current value: {response.responseText}</p>
         </div>
       );
     default:
       break;
   }
-
 }
 export default RenderQuestion;
