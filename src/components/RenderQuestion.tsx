@@ -11,7 +11,9 @@ function RenderQuestion({ question }: questionProps) {
     "input[type=checkbox]"
   );
 
+  // tässä lista johon vastaukset lisätään
   const context = useContext(responseContext);
+
   const [response, setResponse] = useState<Response>({
     questionId: question.questionId,
     responseText: ""

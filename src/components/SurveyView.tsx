@@ -3,6 +3,7 @@ import type { Question, ResponseListContext } from "../types";
 import RenderQuestion from "./RenderQuestion";
 import { useParams } from "react-router";
 
+// lista josta löytyy vastaukset
 export const responseContext = createContext<ResponseListContext>([]);
 
 function SurveyView() {

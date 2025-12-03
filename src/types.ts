@@ -33,4 +33,5 @@ export type Response = {
   responseText: string;
 }
 
+// pitäisi ehkä muuttaa arrayn sijan hash setiksi/mapiksi
 export type ResponseListContext = Response[];
