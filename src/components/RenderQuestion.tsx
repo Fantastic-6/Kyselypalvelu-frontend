@@ -27,8 +27,7 @@ function RenderQuestion({ question, sendDataToParent }: questionProps) {
             onChange={(event) =>
               setResponse({ ...response, responseText: event.target.value })
             }
-            onBlur={(event) => {
-              setResponse({ ...response, responseText: event.target.value });
+            onBlur={() => {
               sendDataToParent(response);
             }}
           />
@@ -49,6 +48,8 @@ function RenderQuestion({ question, sendDataToParent }: questionProps) {
                 checked={response.responseText === option.title}
                 onClick={() => {
                   setResponse({ ...response, responseText: option.title });
+                }}
+                onBlur={() => {
                   sendDataToParent(response);
                 }}
               />
@@ -76,15 +77,10 @@ function RenderQuestion({ question, sendDataToParent }: questionProps) {
                         answers = answers + ";" + checkbox.name;
                       }
                     });
-                    console.log(answers);
                     return { ...response, responseText: answers };
                   })
                 }
-                onBlur={(event) => {
-                  setResponse({
-                    ...response,
-                    responseText: event.target.value
-                  });
+                onBlur={() => {
                   sendDataToParent(response);
                 }}
               />
@@ -103,6 +99,8 @@ function RenderQuestion({ question, sendDataToParent }: questionProps) {
             value={response.responseText}
             onChange={(event) => {
               setResponse({ ...response, responseText: event.target.value });
+            }}
+            onBlur={() => {
               sendDataToParent(response);
             }}
           />

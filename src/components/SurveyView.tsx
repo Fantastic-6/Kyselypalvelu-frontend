@@ -6,11 +6,10 @@ import { useParams } from "react-router";
 function SurveyView() {
   const [questions, setQuestions] = useState<Question[]>([]);
 
-  const [responses, setResponses] = useState<Response[]>([]);
+  const [responses, setResponses] = useState<Map<number, string>>(new Map);
 
   function handleDataFromChild(r: Response) {
-    console.log("Response: " + r.responseText);
-    setResponses((prev) => prev.concat(r));
+    setResponses((prev) => prev.set(r.questionId, r.responseText));
   }
 
   useEffect(() => {
@@ -37,7 +36,7 @@ function SurveyView() {
       {questions.map((question) => (
         <RenderQuestion question={question} sendDataToParent={handleDataFromChild} />
       ))}
-      <button onClick={() => {}}>Lähetä vastaukset</button>
+      <button onClick={() => {console.log(responses)}}>Lähetä vastaukset</button>
     </>
   );
 }
