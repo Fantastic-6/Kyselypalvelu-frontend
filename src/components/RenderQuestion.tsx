@@ -30,6 +30,10 @@ function RenderQuestion({ question }: questionProps) {
             onChange={(event) =>
               setResponse({ ...response, responseText: event.target.value })
             }
+            onBlur={(event) => {
+              setResponse({ ...response, responseText: event.target.value })
+              context.push(response)
+            }}
           />
         </div>
       );

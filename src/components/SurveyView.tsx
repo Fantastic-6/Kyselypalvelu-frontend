@@ -8,7 +8,7 @@ export const responseContext = createContext<ResponseListContext>([]);
 
 function SurveyView() {
   const [questions, setQuestions] = useState<Question[]>([]);
-
+  console.log(responseContext)
   useEffect(() => {
     fetchQuestions();
   }, []);
