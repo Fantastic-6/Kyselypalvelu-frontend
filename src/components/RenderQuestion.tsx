@@ -2,8 +2,8 @@ import { useState } from "react";
 import type { Question, Response } from "../types";
 
 type questionProps = {
-  question: Question,
-  sendDataToParent: any,
+  question: Question;
+  sendDataToParent: any;
 };
 
 function RenderQuestion({ question, sendDataToParent }: questionProps) {
@@ -28,7 +28,7 @@ function RenderQuestion({ question, sendDataToParent }: questionProps) {
               setResponse({ ...response, responseText: event.target.value })
             }
             onBlur={(event) => {
-              setResponse({ ...response, responseText: event.target.value })
+              setResponse({ ...response, responseText: event.target.value });
               sendDataToParent(response);
             }}
           />
@@ -47,9 +47,10 @@ function RenderQuestion({ question, sendDataToParent }: questionProps) {
                 name="radioOption"
                 value={option.title}
                 checked={response.responseText === option.title}
-                onClick={() =>
-                  setResponse({ ...response, responseText: option.title })
-                }
+                onClick={() => {
+                  setResponse({ ...response, responseText: option.title });
+                  sendDataToParent(response);
+                }}
               />
             </div>
           ))}
@@ -76,9 +77,16 @@ function RenderQuestion({ question, sendDataToParent }: questionProps) {
                       }
                     });
                     console.log(answers);
-                    return {...response, responseText: answers};
+                    return { ...response, responseText: answers };
                   })
                 }
+                onBlur={(event) => {
+                  setResponse({
+                    ...response,
+                    responseText: event.target.value
+                  });
+                  sendDataToParent(response);
+                }}
               />
             </div>
           ))}
@@ -93,8 +101,10 @@ function RenderQuestion({ question, sendDataToParent }: questionProps) {
             min={"1"}
             max={"5"}
             value={response.responseText}
-            onChange={(event) =>
-              setResponse({ ...response, responseText: event.target.value })}
+            onChange={(event) => {
+              setResponse({ ...response, responseText: event.target.value });
+              sendDataToParent(response);
+            }}
           />
           <p>Current value: {response.responseText}</p>
         </div>
