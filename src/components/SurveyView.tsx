@@ -1,14 +1,18 @@
-import { useState, useEffect, createContext } from "react";
-import type { Question, ResponseListContext } from "../types";
+import { useState, useEffect } from "react";
+import type { Question, Response } from "../types";
 import RenderQuestion from "./RenderQuestion";
 import { useParams } from "react-router";
 
-// lista josta löytyy vastaukset
-export const responseContext = createContext<ResponseListContext>([]);
-
 function SurveyView() {
   const [questions, setQuestions] = useState<Question[]>([]);
-  console.log(responseContext)
+
+  const [responses, setResponses] = useState<Response[]>([]);
+
+  function handleDataFromChild(r: Response) {
+    console.log("Response: " + r.responseText);
+    setResponses((prev) => prev.concat(r));
+  }
+
   useEffect(() => {
     fetchQuestions();
   }, []);
@@ -31,7 +35,7 @@ function SurveyView() {
       <h1>Kysely {id}</h1>
 
       {questions.map((question) => (
-        <RenderQuestion question={question} />
+        <RenderQuestion question={question} sendDataToParent={handleDataFromChild} />
       ))}
       <button onClick={() => {}}>Lähetä vastaukset</button>
     </>

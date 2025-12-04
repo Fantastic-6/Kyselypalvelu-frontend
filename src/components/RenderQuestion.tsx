@@ -1,18 +1,15 @@
-import { useContext, useState } from "react";
+import { useState } from "react";
 import type { Question, Response } from "../types";
-import { responseContext } from "./SurveyView";
 
 type questionProps = {
-  question: Question;
+  question: Question,
+  sendDataToParent: any,
 };
 
-function RenderQuestion({ question }: questionProps) {
+function RenderQuestion({ question, sendDataToParent }: questionProps) {
   const boxes = document.querySelectorAll<HTMLInputElement>(
     "input[type=checkbox]"
   );
-
-  // tässä lista johon vastaukset lisätään
-  const context = useContext(responseContext);
 
   const [response, setResponse] = useState<Response>({
     questionId: question.questionId,
@@ -32,7 +29,7 @@ function RenderQuestion({ question }: questionProps) {
             }
             onBlur={(event) => {
               setResponse({ ...response, responseText: event.target.value })
-              context.push(response)
+              sendDataToParent(response);
             }}
           />
         </div>
