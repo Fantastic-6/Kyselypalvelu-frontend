@@ -7,6 +7,7 @@ function SurveyView() {
   const [questions, setQuestions] = useState<Question[]>([]);
 
   const [responses, setResponses] = useState<Map<number, string>>(new Map);
+  const [responseNumber, setResponseNumber] = useState<number>(0);
 
   function handleDataFromChild(r: Response) {
     setResponses((prev) => prev.set(r.questionId, r.responseText));
@@ -14,6 +15,7 @@ function SurveyView() {
 
   useEffect(() => {
     fetchQuestions();
+    fetchResponses();
   }, []);
 
   const { id } = useParams();
@@ -29,8 +31,22 @@ function SurveyView() {
       .then((questions) => setQuestions(questions))
       .catch((err) => console.error(err));
   };
+  
+  const fetchResponses = async () => {
+    const response = await fetch("https://kyselypalvelu-backend-git-kyselypalvelu-backend.2.rahtiapp.fi/api/responses")
+    const data: { session: number }[] = await response.json();
+
+    const sessions = data
+    .map(item => item.session)
+    .filter((session): session is number => session !== null && session !== undefined);
+
+    const uniqueSessionCount = new Set(sessions).size;
+    setResponseNumber(uniqueSessionCount);
+    console.log(uniqueSessionCount);
+  }
 
   const saveResponses = () => {
+    const sessionNumber = responseNumber + 1;
     for (const [key, value] of responses.entries()) {
       console.log("Sending: ", {responseText: value, session: 0})
       fetch(import.meta.env.VITE_API_URL + "/" + key + "/responses", {
@@ -38,7 +54,7 @@ function SurveyView() {
         headers: { 'Content-type': 'application/json'},
         body: JSON.stringify({
           responseText: value,
-          session: 0
+          session: sessionNumber
         })
       }).then((response) => {
         if (!response.ok)
