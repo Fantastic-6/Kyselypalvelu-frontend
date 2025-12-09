@@ -33,6 +33,31 @@ form {
   padding: 5% 10%;
 }
 
+table {
+  width: 80%;
+  margin: auto;
+  background-color: var(--bgColor);
+  color: var(--textColor);
+  border-radius: 5px;
+  padding: 5%;
+}
+
+th, td {
+  text-wrap: wrap;
+  text-align: left;
+  color: var(--textColor);
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 14px;
+  padding: 5px;
+  margin: 5px;
+  border-bottom: 1px dotted var(--hoverColor);
+  border-collapse: collapse;
+}
+
+.title {
+  text-wrap: nowrap !important;
+}
+
 .question {
   border-bottom: 1px dotted var(--hoverColor);
   padding-bottom: 5px;
@@ -71,11 +96,13 @@ input:focus, input:hover, input:active {
   accent-color: var(--hoverColor);
 }
 
-button {
+button, a {
   border-radius: 7px;
   padding: 5px 10px;
   margin: 2px 0;
   text-decoration: none;
+  text-align: center;
+  text-wrap: nowrap;
   color: var(--bgColor);
   font-family: Arial, Helvetica, sans-serif;
   font-size: 14px;
@@ -84,6 +111,7 @@ button {
   background-color: var(--accentColor);
 }
 
-button:hover {
+button:hover, a:hover {
   background-color: var(--hoverColor) !important;
+  color: var(--bgColor);
 }
