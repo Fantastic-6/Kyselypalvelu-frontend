@@ -5,6 +5,7 @@ import App from './App.tsx'
 import SurveyBrowser from './components/SurveyBrowser.tsx'
 import SurveyView from './components/SurveyView.tsx'
 import { createHashRouter, RouterProvider } from 'react-router'
+import ResponsesView from './components/ResponsesView.tsx'
 const router = createHashRouter([
   {
     path: "/",
@@ -16,7 +17,11 @@ const router = createHashRouter([
       },
       {
         path: "survey/:id",
-        element: <SurveyView /> 
+        element: <SurveyView />
+      },
+      {
+        path: "responses",
+        element: <ResponsesView />
       }
     ]
   }
