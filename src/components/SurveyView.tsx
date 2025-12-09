@@ -15,6 +15,7 @@ function SurveyView() {
   useEffect(() => {
     fetchQuestions();
   }, []);
+
   const { id } = useParams();
   const fetchQuestions = () => {
     fetch(import.meta.env.VITE_API_URL + "/" + id + "/questions")
@@ -29,14 +30,33 @@ function SurveyView() {
       .catch((err) => console.error(err));
   };
 
+  const saveResponses = () => {
+    for (const [key, value] of responses.entries()) {
+      console.log("Sending: ", {responseText: value, session: 0})
+      fetch(import.meta.env.VITE_API_URL + "/" + key + "/responses", {
+        method: 'POST',
+        headers: { 'Content-type': 'application/json'},
+        body: JSON.stringify({
+          responseText: value,
+          session: 0
+        })
+      }).then((response) => {
+        if (!response.ok)
+          throw new Error("Failed to save response:" + response.statusText)
+        response.json()
+      })
+    }
+  }
+
   return (
     <>
       <h1>Kysely {id}</h1>
-
-      {questions.map((question) => (
-        <RenderQuestion question={question} sendDataToParent={handleDataFromChild} />
-      ))}
-      <button onClick={() => {console.log(responses)}}>Lähetä vastaukset</button>
+      <form>
+        {questions.map((question) => (
+          <RenderQuestion question={question} sendDataToParent={handleDataFromChild} />
+        ))}
+        <button type="submit" onClick={saveResponses}>Lähetä vastaukset</button>
+      </form>
     </>
   );
 }

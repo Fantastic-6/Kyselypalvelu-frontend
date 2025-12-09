@@ -3,7 +3,7 @@ import type { Question, Response } from "../types";
 
 type questionProps = {
   question: Question;
-  sendDataToParent: any;
+  sendDataToParent: (data: Response) => void;
 };
 
 function RenderQuestion({ question, sendDataToParent }: questionProps) {
@@ -30,6 +30,7 @@ function RenderQuestion({ question, sendDataToParent }: questionProps) {
             onBlur={() => {
               sendDataToParent(response);
             }}
+            required={question.isRequired}
           />
         </div>
       );
@@ -46,12 +47,13 @@ function RenderQuestion({ question, sendDataToParent }: questionProps) {
                 name="radioOption"
                 value={option.title}
                 checked={response.responseText === option.title}
-                onClick={() => {
+                onChange={() => {
                   setResponse({ ...response, responseText: option.title });
                 }}
                 onBlur={() => {
                   sendDataToParent(response);
                 }}
+                required={question.isRequired}
               />
             </div>
           ))}
@@ -83,6 +85,7 @@ function RenderQuestion({ question, sendDataToParent }: questionProps) {
                 onBlur={() => {
                   sendDataToParent(response);
                 }}
+                // required={question.isRequired}
               />
             </div>
           ))}
@@ -103,6 +106,7 @@ function RenderQuestion({ question, sendDataToParent }: questionProps) {
             onBlur={() => {
               sendDataToParent(response);
             }}
+            required={question.isRequired}
           />
           <p>Current value: {response.responseText}</p>
         </div>
