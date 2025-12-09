@@ -20,7 +20,7 @@ function RenderQuestion({ question, sendDataToParent }: questionProps) {
     case "TEXT":
       return (
         <div className="question">
-          <p>{question.questionText}</p>
+          <p>{question.questionText} {question.isRequired && <span style={{color: 'red'}}>*</span>}</p>
           <input
             type="text"
             value={response.responseText}
@@ -30,14 +30,13 @@ function RenderQuestion({ question, sendDataToParent }: questionProps) {
             onBlur={() => {
               sendDataToParent(response);
             }}
-            required={question.isRequired}
           />
         </div>
       );
     case "RADIO":
       return (
         <div className="question">
-          <p>{question.questionText}</p>
+          <p>{question.questionText} {question.isRequired && <span style={{color: 'red'}}>*</span>}</p>
           {question.options.map((option) => (
             <div>
               <label htmlFor={option.optionId.toString()}>{option.title}</label>
@@ -53,7 +52,6 @@ function RenderQuestion({ question, sendDataToParent }: questionProps) {
                 onBlur={() => {
                   sendDataToParent(response);
                 }}
-                required={question.isRequired}
               />
             </div>
           ))}
@@ -62,7 +60,7 @@ function RenderQuestion({ question, sendDataToParent }: questionProps) {
     case "CHECKBOX":
       return (
         <div className="question">
-          <p>{question.questionText}</p>
+          <p>{question.questionText} {question.isRequired && <span style={{color: 'red'}}>*</span>}</p>
           {question.options.map((option) => (
             <div>
               <label htmlFor={option.optionId.toString()}>{option.title}</label>
@@ -94,7 +92,7 @@ function RenderQuestion({ question, sendDataToParent }: questionProps) {
     case "SCALE":
       return (
         <div className="question">
-          <p>{question.questionText}</p>
+          <p>{question.questionText} {question.isRequired && <span style={{color: 'red'}}>*</span>}</p>
           <input
             type="range"
             min={"1"}
@@ -106,7 +104,6 @@ function RenderQuestion({ question, sendDataToParent }: questionProps) {
             onBlur={() => {
               sendDataToParent(response);
             }}
-            required={question.isRequired}
           />
           <p>Current value: {response.responseText}</p>
         </div>
