@@ -76,7 +76,7 @@ function RenderQuestion({ question, sendDataToParent }: questionProps) {
                     let answers = "";
                     boxes.forEach((checkbox) => {
                       if (checkbox.checked) {
-                        answers = answers + ";" + checkbox.name;
+                        answers = answers ? answers + ";" + checkbox.name : checkbox.name;
                       }
                     });
                     return { ...response, responseText: answers };
