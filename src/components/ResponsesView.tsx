@@ -53,7 +53,11 @@ function ResponsesView() {
         {
             field: "options", width: 500, headerName: "Response(s)",
             valueGetter: (_value, row) => {
-                return getResponseText(row.responseText) + getOptions(row.question.options)
+                if (row.responseText != null) {
+                    return getResponseText(row.responseText)
+                } 
+                else {
+                    return getOptions(row.question.options)}
             }
         },
         {
