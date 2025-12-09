@@ -19,7 +19,7 @@ function RenderQuestion({ question, sendDataToParent }: questionProps) {
   switch (question.questionType) {
     case "TEXT":
       return (
-        <div>
+        <div className="question">
           <p>{question.questionText}</p>
           <input
             type="text"
@@ -36,7 +36,7 @@ function RenderQuestion({ question, sendDataToParent }: questionProps) {
       );
     case "RADIO":
       return (
-        <div>
+        <div className="question">
           <p>{question.questionText}</p>
           {question.options.map((option) => (
             <div>
@@ -44,7 +44,7 @@ function RenderQuestion({ question, sendDataToParent }: questionProps) {
               <input
                 id={option.optionId.toString()}
                 type="radio"
-                name="radioOption"
+                name={question.questionText}
                 value={option.title}
                 checked={response.responseText === option.title}
                 onChange={() => {
@@ -61,7 +61,7 @@ function RenderQuestion({ question, sendDataToParent }: questionProps) {
       );
     case "CHECKBOX":
       return (
-        <div>
+        <div className="question">
           <p>{question.questionText}</p>
           {question.options.map((option) => (
             <div>
@@ -93,7 +93,7 @@ function RenderQuestion({ question, sendDataToParent }: questionProps) {
       );
     case "SCALE":
       return (
-        <div>
+        <div className="question">
           <p>{question.questionText}</p>
           <input
             type="range"
