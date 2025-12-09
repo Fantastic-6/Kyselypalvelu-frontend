@@ -31,7 +31,7 @@ function ResponsesView() {
         if (text == null) {
             return "";
         } else {
-            return text + " ";
+            return text.replace(/^;/, "") + " ";
         }
     }
 
