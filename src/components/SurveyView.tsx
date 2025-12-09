@@ -33,7 +33,7 @@ function SurveyView() {
   };
   
   const fetchResponses = async () => {
-    const response = await fetch("https://kyselypalvelu-backend-git-kyselypalvelu-backend.2.rahtiapp.fi/api/responses")
+    const response = await fetch(import.meta.env.VITE_API_URL + "/responses")
     const data: { session: number }[] = await response.json();
 
     const sessions = data
@@ -42,13 +42,19 @@ function SurveyView() {
 
     const uniqueSessionCount = new Set(sessions).size;
     setResponseNumber(uniqueSessionCount);
-    console.log(uniqueSessionCount);
   }
 
-  const saveResponses = () => {
-    const sessionNumber = responseNumber + 1;
+  const saveResponses = async () => {
+    const response = await fetch(import.meta.env.VITE_API_URL + "/responses")
+    const data: { session: number }[] = await response.json();
+
+    const sessions = data
+    .map(item => item.session)
+    .filter((session): session is number => session !== null && session !== undefined);
+
+    const sessionNumber = Math.max(...sessions) + 1;
+
     for (const [key, value] of responses.entries()) {
-      console.log("Sending: ", {responseText: value, session: 0})
       fetch(import.meta.env.VITE_API_URL + "/" + key + "/responses", {
         method: 'POST',
         headers: { 'Content-type': 'application/json'},
@@ -56,10 +62,6 @@ function SurveyView() {
           responseText: value,
           session: sessionNumber
         })
-      }).then((response) => {
-        if (!response.ok)
-          throw new Error("Failed to save response:" + response.statusText)
-        response.json()
       })
     }
   }
