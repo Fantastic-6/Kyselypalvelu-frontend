@@ -30,7 +30,21 @@ function SurveyView() {
       .catch((err) => console.error(err));
   };
 
-  const saveResponses = async () => {
+  const saveResponses = async (event: React.FormEvent) => {
+    event.preventDefault();
+
+    // Validate required questions
+    const requiredQuestions = questions.filter(q => q.isRequired);
+    const missingAnswers = requiredQuestions.filter(q => {
+      const answer = responses.get(q.questionId);
+      return !answer || answer.trim() === "";
+    });
+
+    if (missingAnswers.length > 0) {
+      alert(`Pakollisia kysymyksiä vastaamatta: ${missingAnswers.length} kpl`);
+      return;
+    }
+
     const response = await fetch(import.meta.env.VITE_API_URL + "/responses")
     const data: { session: number }[] = await response.json();
 
@@ -55,11 +69,11 @@ function SurveyView() {
   return (
     <>
       <h1>Kysely {id}</h1>
-      <form>
+      <form onSubmit={saveResponses}>
         {questions.map((question) => (
           <RenderQuestion question={question} sendDataToParent={handleDataFromChild} />
         ))}
-        <button type="submit" onClick={saveResponses}>Lähetä vastaukset</button>
+        <button type="submit">Lähetä vastaukset</button>
       </form>
     </>
   );
