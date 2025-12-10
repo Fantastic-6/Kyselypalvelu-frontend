@@ -46,7 +46,7 @@ function SurveyView() {
       .catch((err) => console.error(err));
   };
 
-  
+
 
   const saveResponses = async (event: React.FormEvent) => {
     event.preventDefault();
@@ -67,15 +67,15 @@ function SurveyView() {
     const data: { session: number }[] = await response.json();
 
     const sessions = data
-    .map(item => item.session)
-    .filter((session): session is number => session !== null && session !== undefined);
+      .map(item => item.session)
+      .filter((session): session is number => session !== null && session !== undefined);
 
     const sessionNumber = Math.max(...sessions) + 1;
 
     for (const [key, value] of responses.entries()) {
       fetch(import.meta.env.VITE_API_URL + "/" + key + "/responses", {
         method: 'POST',
-        headers: { 'Content-type': 'application/json'},
+        headers: { 'Content-type': 'application/json' },
         body: JSON.stringify({
           responseText: value,
           session: sessionNumber
@@ -86,6 +86,7 @@ function SurveyView() {
 
   return (
     <>
+      <a href={`/`}>Palaa etusivulle</a>
       <h1>{survey?.title}</h1>
       <form onSubmit={saveResponses}>
         {questions.map((question) => (
