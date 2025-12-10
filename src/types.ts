@@ -26,6 +26,7 @@ export type Question = {
       timeAdded: string;
     }
   ];
+  survey: Survey;
 };
 
 export type QuestionReport = {
