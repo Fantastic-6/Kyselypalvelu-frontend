@@ -36,13 +36,17 @@ h1 {
   margin: 0 0 10px;
 }
 
-form {
+.container {
   min-width: 50%;
-  margin: auto;
+  margin: auto auto 20px;
   background-color: var(--bgColor);
+  padding: 5%;
+}
+
+form {
   color: var(--textColor);
   border-radius: 5px;
-  padding: 5% 10%;
+  padding: 0 10%;
 }
 
 table {
@@ -125,11 +129,6 @@ button, a {
 
 .green-btn {
   background-color: var(--successColor) !important;
-}
-
-.return-btn {
-  margin-bottom: auto;
-  margin-right: auto;
 }
 
 button:hover, a:hover {
