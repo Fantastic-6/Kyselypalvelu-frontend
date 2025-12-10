@@ -91,7 +91,7 @@ function SurveyView() {
       <div className="container">
         <a
           className="return-btn"
-          href={"/Kyselypalvelu-frontend"}
+          href={"/Kyselypalvelu-frontend/"}
         >
           Takaisin etusivulle
         </a>
