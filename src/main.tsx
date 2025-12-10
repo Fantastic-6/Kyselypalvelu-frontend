@@ -1,6 +1,5 @@
 import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
-import './index.css'
 import App from './App.tsx'
 import SurveyBrowser from './components/SurveyBrowser.tsx'
 import SurveyView from './components/SurveyView.tsx'

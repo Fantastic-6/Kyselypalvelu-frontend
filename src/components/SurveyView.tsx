@@ -46,8 +46,6 @@ function SurveyView() {
       .catch((err) => console.error(err));
   };
 
-  
-
   const saveResponses = async (event: React.FormEvent) => {
     event.preventDefault();
 

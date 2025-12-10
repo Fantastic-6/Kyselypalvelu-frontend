@@ -24,26 +24,30 @@ function SurveyBrowser() {
 
   return (
     <>
-      <h2>Kyselyt</h2>
+      <h1>Kyselyt</h1>
       <table>
-        <tr>
-          <th className="title">Kyselyn nimi</th>
-          <th>Kuvaus</th>
-          <th>Sulkeutumispäivä</th>
-          <th>Sulkeutumisaika</th>
-          <th></th>
-        </tr>
-        {surveys.map((survey) => (
+        <thead>
           <tr>
-            <td>{survey.title}</td>
-            <td>{survey.description}</td>
-            <td>{survey.deadlineDate}</td>
-            <td>{survey.deadlineTime}</td>
-            <td>
-              <a href={`#/survey/${survey.surveyId}`}>Vastaa kyselyyn</a>
-            </td>
+            <th className="title">Kyselyn nimi</th>
+            <th>Kuvaus</th>
+            <th>Sulkeutumispäivä</th>
+            <th>Sulkeutumisaika</th>
+            <th></th>
           </tr>
-        ))}
+        </thead>
+        <tbody>
+          {surveys.map((survey) => (
+            <tr>
+              <td>{survey.title}</td>
+              <td>{survey.description}</td>
+              <td>{survey.deadlineDate}</td>
+              <td>{survey.deadlineTime}</td>
+              <td>
+                <a href={`#/survey/${survey.surveyId}`}>Vastaa kyselyyn</a>
+              </td>
+            </tr>
+          ))}
+        </tbody>
       </table>
     </>
   );

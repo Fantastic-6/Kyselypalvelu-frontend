@@ -105,7 +105,7 @@ function RenderQuestion({ question, sendDataToParent }: questionProps) {
               sendDataToParent(response);
             }}
           />
-          <p>Current value: {response.responseText}</p>
+          <label> {response.responseText}</label>
         </div>
       );
     default:
