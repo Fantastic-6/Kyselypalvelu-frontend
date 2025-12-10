@@ -1,24 +1,27 @@
 import { useState, useEffect } from "react";
 import type { Question, Response, Survey } from "../types";
 import RenderQuestion from "./RenderQuestion";
-import { useParams } from "react-router";
+import { useParams, useNavigate } from "react-router";
+
 
 function SurveyView() {
   const [questions, setQuestions] = useState<Question[]>([]);
 
   const [responses, setResponses] = useState<Map<number, string>>(new Map);
 
+  
   const [survey, setSurvey] = useState<Survey>(); // For getting survey's name
 
   function handleDataFromChild(r: Response) {
     setResponses((prev) => prev.set(r.questionId, r.responseText));
   }
-
+  
   useEffect(() => {
     fetchQuestions();
     fetchSurvey();
   }, []);
-
+  
+  const navigate = useNavigate();
   const { id } = useParams();
   const fetchQuestions = () => {
     fetch(import.meta.env.VITE_API_URL + "/" + id + "/questions")
@@ -82,6 +85,8 @@ function SurveyView() {
         })
       })
     }
+    navigate('/');
+
   }
 
   return (
