@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import type { Question, Response } from "../types";
+import type { Question, Response, Survey } from "../types";
 import RenderQuestion from "./RenderQuestion";
 import { useParams } from "react-router";
 
@@ -8,12 +8,15 @@ function SurveyView() {
 
   const [responses, setResponses] = useState<Map<number, string>>(new Map);
 
+  const [survey, setSurvey] = useState<Survey>(); // For getting survey's name
+
   function handleDataFromChild(r: Response) {
     setResponses((prev) => prev.set(r.questionId, r.responseText));
   }
 
   useEffect(() => {
     fetchQuestions();
+    fetchSurvey();
   }, []);
 
   const { id } = useParams();
@@ -29,6 +32,21 @@ function SurveyView() {
       .then((questions) => setQuestions(questions))
       .catch((err) => console.error(err));
   };
+
+  const fetchSurvey = () => {
+    fetch(import.meta.env.VITE_API_URL + "/survey/" + id)
+      .then((response) => {
+        if (!response.ok)
+          throw new Error(
+            "Error when fetching survey" + response.statusText
+          );
+        return response.json();
+      })
+      .then((survey) => setSurvey(survey))
+      .catch((err) => console.error(err));
+  };
+
+  
 
   const saveResponses = async (event: React.FormEvent) => {
     event.preventDefault();
@@ -68,7 +86,7 @@ function SurveyView() {
 
   return (
     <>
-      <h1>Kysely {id}</h1>
+      <h1>{survey?.title}</h1>
       <form onSubmit={saveResponses}>
         {questions.map((question) => (
           <RenderQuestion question={question} sendDataToParent={handleDataFromChild} />
