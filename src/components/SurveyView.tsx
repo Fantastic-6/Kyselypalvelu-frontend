@@ -90,7 +90,7 @@ function SurveyView() {
       <h1>{survey?.title}</h1>
       <div className="container">
         <a href="https://fantastic-6.github.io/Kyselypalvelu-frontend/">
-          Takaisin etusivulle
+          Palaa etusivulle
         </a>
         <form onSubmit={saveResponses}>
           {questions.map((question) => (
@@ -100,7 +100,7 @@ function SurveyView() {
             />
           ))}
           <button className="green-btn" type="submit">
-            Lähetä vastaukset
+            Tallenna vastaukset
           </button>
         </form>
       </div>
