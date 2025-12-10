@@ -131,11 +131,6 @@ button, a {
   background-color: var(--successColor) !important;
 }
 
-.return-btn {
-  margin-bottom: auto;
-  margin-right: auto;
-}
-
 button:hover, a:hover {
   background-color: var(--hoverColor) !important;
   color: var(--bgColor);

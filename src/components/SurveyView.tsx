@@ -89,7 +89,7 @@ function SurveyView() {
     <>
       <h1>{survey?.title}</h1>
       <div className="container">
-        <a className="return-btn" href="https://fantastic-6.github.io/Kyselypalvelu-frontend/">
+        <a href="https://fantastic-6.github.io/Kyselypalvelu-frontend/">
           Takaisin etusivulle
         </a>
         <form onSubmit={saveResponses}>
