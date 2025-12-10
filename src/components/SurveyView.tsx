@@ -89,7 +89,7 @@ function SurveyView() {
     <>
       <h1>{survey?.title}</h1>
       <form onSubmit={saveResponses}>
-        <a className="return-btn" href={`/`}>
+        <a className="return-btn" href={"/"}>
           Takaisin etusivulle
         </a>
         {questions.map((question) => (
