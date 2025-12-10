@@ -88,20 +88,22 @@ function SurveyView() {
   return (
     <>
       <h1>{survey?.title}</h1>
-      <form onSubmit={saveResponses}>
-        <a className="return-btn" href={"/https://fantastic-6.github.io/Kyselypalvelu-frontend"}>
+      <div className="container">
+        <a className="return-btn" href={"/"}>
           Takaisin etusivulle
         </a>
-        {questions.map((question) => (
-          <RenderQuestion
-            question={question}
-            sendDataToParent={handleDataFromChild}
-          />
-        ))}
-        <button className="green-btn" type="submit">
-          Lähetä vastaukset
-        </button>
-      </form>
+        <form onSubmit={saveResponses}>
+          {questions.map((question) => (
+            <RenderQuestion
+              question={question}
+              sendDataToParent={handleDataFromChild}
+            />
+          ))}
+          <button className="green-btn" type="submit">
+            Lähetä vastaukset
+          </button>
+        </form>
+      </div>
     </>
   );
 }
