@@ -1,24 +1,27 @@
 import { useState, useEffect } from "react";
 import type { Question, Response, Survey } from "../types";
 import RenderQuestion from "./RenderQuestion";
-import { useParams } from "react-router";
+import { useParams, useNavigate } from "react-router";
+
 
 function SurveyView() {
   const [questions, setQuestions] = useState<Question[]>([]);
 
   const [responses, setResponses] = useState<Map<number, string>>(new Map);
 
+  
   const [survey, setSurvey] = useState<Survey>(); // For getting survey's name
 
   function handleDataFromChild(r: Response) {
     setResponses((prev) => prev.set(r.questionId, r.responseText));
   }
-
+  
   useEffect(() => {
     fetchQuestions();
     fetchSurvey();
   }, []);
-
+  
+  const navigate = useNavigate();
   const { id } = useParams();
   const fetchQuestions = () => {
     fetch(import.meta.env.VITE_API_URL + "/" + id + "/questions")
@@ -46,6 +49,8 @@ function SurveyView() {
       .catch((err) => console.error(err));
   };
 
+
+
   const saveResponses = async (event: React.FormEvent) => {
     event.preventDefault();
 
@@ -65,25 +70,28 @@ function SurveyView() {
     const data: { session: number }[] = await response.json();
 
     const sessions = data
-    .map(item => item.session)
-    .filter((session): session is number => session !== null && session !== undefined);
+      .map(item => item.session)
+      .filter((session): session is number => session !== null && session !== undefined);
 
     const sessionNumber = Math.max(...sessions) + 1;
 
     for (const [key, value] of responses.entries()) {
       fetch(import.meta.env.VITE_API_URL + "/" + key + "/responses", {
         method: 'POST',
-        headers: { 'Content-type': 'application/json'},
+        headers: { 'Content-type': 'application/json' },
         body: JSON.stringify({
           responseText: value,
           session: sessionNumber
         })
       })
     }
+    navigate('/');
+
   }
 
   return (
     <>
+      <a href={`/`}>Palaa etusivulle</a>
       <h1>{survey?.title}</h1>
       <form onSubmit={saveResponses}>
         {questions.map((question) => (
