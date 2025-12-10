@@ -10,7 +10,7 @@ function SurveyBrowser() {
 
   const fetchSurveys = () => {
     //fetch("http://localhost:8080/api/surveys")
-    fetch(import.meta.env.VITE_API_URL + "/surveys")
+    fetch(import.meta.env.VITE_API_URL + "/active-surveys")
       .then((response) => {
         if (!response.ok)
           throw new Error(
@@ -37,7 +37,7 @@ function SurveyBrowser() {
         </thead>
         <tbody>
           {surveys.map((survey) => (
-            <tr>
+            <tr key={survey.surveyId}>
               <td>{survey.title}</td>
               <td>{survey.description}</td>
               <td>{survey.deadlineDate}</td>
